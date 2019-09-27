@@ -2,8 +2,6 @@ const Discord = require('discord.js')
 const client = new Discord.Client()
 let prefix = "e!"
  
-client.login('NTgyMDg2MzExMTUwNzQ3NjU5.XYvIWA.UmJCygOSRhG6Kdwts-Tc_IMV-p0')
- 
 client.on("ready", () => {
     console.log(`Bonjour, ${client.user.username} je suis en ligne !`);
 
@@ -67,3 +65,5 @@ client.on('message',message => {
         message.channel.send(member.user.username + ' à été bien banni :white_check_mark:')
     }
 });
+
+client.login(process.env.TOKEN);
