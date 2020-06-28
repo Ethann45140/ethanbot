@@ -49,7 +49,7 @@ client.on('message',message => {
         member.kick()
         message.channel.send(member.user.username + ' à été bien exclu :white_check_mark:')
     }
-})
+});
 
 client.on('message',message => {
     if (!message.guild) return 
@@ -65,5 +65,20 @@ client.on('message',message => {
         message.channel.send(member.user.username + ' à été bien banni :white_check_mark:')
     }
 });
+
+client.on('message',message => {
+    if (!message.guild) return 
+    let args = message.content.trim().split(/ +/g)
+
+   if (args[0].toLowerCase() === prefix + 'warn'){
+        if (!message.member.hasPermission('WARN_MEMBERS')) return message.channel.send("Vous n'avez pas la permisssion de utiliser la commande ! ;(")
+        let member = message.mentions.members.first()
+        if (!member) return message.channel.send("Veuillez mentionner un utilisateur :x:")
+        if (member.highestRole.calculatedPosition >= message.member.highestRole.calculatedPosition && message.author.id !== message.guild.owner.id) return message.channel.send("Vous ne pouvez pas warn cet utilisateur :x:")
+        if (!member.warnable) return message.channel.send("Je ne peut pas warn cet utilisateur :cry:")
+        member.warn()
+        message.channel.send(member.user.username + ' à bien reçu le warn :white_check_mark:')
+    }
+})
 
 client.login(process.env.TOKEN);
